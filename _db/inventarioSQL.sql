@@ -1,0 +1,7 @@
+﻿CREATE TABLE usuario (
+	id SERIAL NOT NULL	,
+	nome VARCHAR(50) NOT NULL	,
+	cpf VARCHAR(11) NOT NULL	,
+	senha VARCHAR(20) NOT NULL	,
+	nome_usuario VARCHAR(12) NOT NULL	,
+PRIMARY KEY(id));
