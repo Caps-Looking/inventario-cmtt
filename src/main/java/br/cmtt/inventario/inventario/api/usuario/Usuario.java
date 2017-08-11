@@ -1,9 +1,12 @@
 package br.cmtt.inventario.inventario.api.usuario;
 
+import br.cmtt.inventario.inventario.api.departamento.Departamento;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 @Table(name="usuario")
@@ -34,6 +37,11 @@ public class Usuario {
     @Size(min = 6, max = 12)
     @Column(name = "nome_usuario")
     private String nomeUsuario;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "usuario")
+    private List<Departamento> departamentos;
+
 
     public long getId() {
         return id;
@@ -73,5 +81,13 @@ public class Usuario {
 
     public void setNomeUsuario(String nomeUsuario) {
         this.nomeUsuario = nomeUsuario;
+    }
+
+    public List<Departamento> getDepartamentos() {
+        return departamentos;
+    }
+
+    public void setDepartamentos(List<Departamento> departamentos) {
+        this.departamentos = departamentos;
     }
 }

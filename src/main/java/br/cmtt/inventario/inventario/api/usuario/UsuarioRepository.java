@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     public List<Usuario> findAll();
+
+    public List<Usuario> findUsuarioByNomeUsuario(String nomeUsuario);
 }
