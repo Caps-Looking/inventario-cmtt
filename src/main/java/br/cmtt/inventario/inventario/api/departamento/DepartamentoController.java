@@ -1,12 +1,11 @@
 package br.cmtt.inventario.inventario.api.departamento;
 
+import br.cmtt.inventario.inventario.api.usuario.Usuario;
+import br.cmtt.inventario.inventario.api.usuario.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
@@ -16,6 +15,9 @@ public class DepartamentoController {
 
     @Autowired
     DepartamentoRepository departamentoRepository;
+
+    @Autowired
+    UsuarioRepository usuarioRepository;
 
     /********************
     *LISTAR DEPARTAMENTO*
@@ -28,5 +30,20 @@ public class DepartamentoController {
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)
     public ResponseEntity<Departamento> getDepartamentoById(@PathVariable Long id) {
         return new ResponseEntity<>(departamentoRepository.findOne(id), HttpStatus.OK);
+    }
+
+    @RequestMapping(params = {"nomeDepartamento"}, method = RequestMethod.GET)
+    public ResponseEntity<Collection<Departamento>> getDepartamentoByNome(@RequestParam(value = "nomeDepartamento") String nomeDepartamento) {
+        return new ResponseEntity<>(departamentoRepository.findDepartamentoByNome(nomeDepartamento), HttpStatus.OK);
+    }
+
+    /********************
+    *SALVAR DEPARTAMENTO*
+    ********************/
+    @RequestMapping(params = {"usuarioId"},method = RequestMethod.POST)
+    public ResponseEntity<?> addDepartamento(@RequestBody Departamento departamento, @RequestParam(value = "usuarioId") long usuarioId) {
+        Usuario usuario = usuarioRepository.findOne(usuarioId);
+        departamento.setUsuario(usuario);
+        return new ResponseEntity<>(departamentoRepository.save(departamento), HttpStatus.CREATED);
     }
 }

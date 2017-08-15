@@ -1,6 +1,7 @@
 package br.cmtt.inventario.inventario.api.departamento;
 
 import br.cmtt.inventario.inventario.api.usuario.Usuario;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -22,6 +23,7 @@ public class Departamento {
     @Column(name = "nome")
     private String nome;
 
+    @JsonIgnore
     @NotNull
     @ManyToOne()
     @JoinColumn(name = "usuario_id", referencedColumnName = "id")

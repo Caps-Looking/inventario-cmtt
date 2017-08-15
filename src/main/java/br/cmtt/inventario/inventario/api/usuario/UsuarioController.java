@@ -36,8 +36,8 @@ public class UsuarioController {
     ***SALVAR USUÁRIO***
     *******************/
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Usuario> addUsuario(@RequestBody Usuario usuario) {
-        return new ResponseEntity<>(usuarioRepository.save(usuario), HttpStatus.OK);
+    public ResponseEntity<?> addUsuario(@RequestBody Usuario usuario) {
+        return new ResponseEntity<>(usuarioRepository.save(usuario), HttpStatus.CREATED);
     }
 
     /*******************
