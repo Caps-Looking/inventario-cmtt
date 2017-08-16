@@ -40,10 +40,9 @@ public class DepartamentoController {
     /********************
     *SALVAR DEPARTAMENTO*
     ********************/
-    @RequestMapping(params = {"usuarioId"},method = RequestMethod.POST)
-    public ResponseEntity<?> addDepartamento(@RequestBody Departamento departamento, @RequestParam(value = "usuarioId") long usuarioId) {
-        Usuario usuario = usuarioRepository.findOne(usuarioId);
-        departamento.setUsuario(usuario);
+    @RequestMapping(params = {"usuarioId"}, method = RequestMethod.POST)
+    public ResponseEntity<?> addDepartamento(@RequestBody Departamento departamento, @RequestParam(value = "usuarioId") Usuario usuarioId) {
+        departamento.setUsuario(usuarioId);
         return new ResponseEntity<>(departamentoRepository.save(departamento), HttpStatus.CREATED);
     }
 }
